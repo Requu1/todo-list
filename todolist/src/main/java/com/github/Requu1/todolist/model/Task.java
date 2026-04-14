@@ -4,36 +4,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
 @Entity
-public class Todo {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank(message = "Title can not be empty!")
-    @Size(min = 3, max = 100, message = "Task name should be anywhere from 3 to 100 characters!")
+    @Size(min = 3, max = 50, message = "Task name should be anywhere from 3 to 50 characters!")
     private String title;
 
-    private boolean completed;
+    private boolean completed=false;
 
-    public Todo() {}
+    public Task() {}
 
-    public Todo(String title, boolean completed) {
+    public Task(String title) {
         this.title = title;
-        this.completed = completed;
     }
 
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setId(UUID id) {
@@ -45,7 +42,8 @@ public class Todo {
     }
 
     public boolean isCompleted() {
-        return completed; }
+        return this.completed;
+    }
 
     public void setCompleted(boolean completed) {
         this.completed = completed;

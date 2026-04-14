@@ -1,8 +1,8 @@
 package com.github.Requu1.todolist.controller;
 
-import com.github.Requu1.todolist.exception.DuplicateTaskException;
 import com.github.Requu1.todolist.model.Task;
 import com.github.Requu1.todolist.service.TodoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +24,9 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createTask(@RequestBody Task newTask) {
-        try{
-            service.saveTask(newTask);
-            return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
-        } catch(DuplicateTaskException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<?> createTask(@Valid @RequestBody Task newTask) {
+        service.saveTask(newTask);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
     }
 
     @DeleteMapping("/{id}")
@@ -41,7 +37,6 @@ public class TodoController {
 
     @PatchMapping("/{id}/toggle")
     public ResponseEntity<Task> toggleTask(@PathVariable UUID id) {
-        service.toggleTaskCompletion(id);
-        return ResponseEntity.ok(service.getTaskById(id));
+        return ResponseEntity.ok(service.toggleTaskCompletion(id));
     }
 }

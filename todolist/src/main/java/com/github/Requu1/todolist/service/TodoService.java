@@ -37,10 +37,10 @@ public class TodoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find a task with ID: " + id));
     }
 
-    public void toggleTaskCompletion(UUID id) {
+    public Task toggleTaskCompletion(UUID id) {
         Task task = getTaskById(id);
         task.setCompleted(!task.isCompleted());
-        repository.save(task);
+        return repository.save(task);
     }
 
 }

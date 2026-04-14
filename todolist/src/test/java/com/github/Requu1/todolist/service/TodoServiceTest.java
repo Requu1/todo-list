@@ -41,8 +41,7 @@ class TodoServiceTest {
     @Test
     void shouldSaveTaskWhenTitleIsUnique() {
         // given
-        Task task = new Task();
-        task.setTitle("Groceries");
+        Task task = new Task("Groceries");
         given(repository.existsByTitle("Groceries")).willReturn(false);
 
         // when
@@ -55,8 +54,7 @@ class TodoServiceTest {
     @Test
     void shouldThrowExceptionWhenTaskAlreadyExists() {
         // given
-        Task task = new Task();
-        task.setTitle("Duplicate");
+        Task task = new Task("Duplicate");
         given(repository.existsByTitle("Duplicate")).willReturn(true);
 
         // when & then
@@ -69,15 +67,31 @@ class TodoServiceTest {
     }
 
     @Test
-    void shouldDeleteTask() {
+    void shouldDeleteTaskWhenItExists() {
         // given
         UUID id = UUID.randomUUID();
+        Task task = new Task();
+        given(repository.findById(id)).willReturn(Optional.of(task));
 
         // when
         service.deleteTask(id);
 
         // then
-        then(repository).should(times(1)).deleteById(id);
+        then(repository).should(times(1)).delete(task);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDeletingNonExistentTask() {
+        // given
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id)).willReturn(Optional.empty());
+
+        // when & then
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> service.deleteTask(id)
+        );
+        then(repository).should(never()).delete(any());
     }
 
     @Test

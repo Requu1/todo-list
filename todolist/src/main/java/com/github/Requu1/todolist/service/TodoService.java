@@ -29,7 +29,7 @@ public class TodoService {
     }
 
     public void deleteTask(UUID taskId){
-        repository.deleteById(taskId);
+        repository.delete(getTaskById(taskId));
     }
 
     public Task getTaskById(UUID id) {

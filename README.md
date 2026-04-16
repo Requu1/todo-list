@@ -160,4 +160,4 @@ src/main/resources/application.properties
 
 ## Author
 
-Created by Szymon Potępa / **Requu1**.
+**Szymon Potępa** / Requu1

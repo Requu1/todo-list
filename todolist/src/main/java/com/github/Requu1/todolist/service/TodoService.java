@@ -13,22 +13,22 @@ import java.util.UUID;
 public class TodoService {
     private final TodoRepository repository;
 
-    public TodoService(TodoRepository repository){
+    public TodoService(TodoRepository repository) {
         this.repository = repository;
     }
 
-    public List<Task> getAllTasks(){
+    public List<Task> getAllTasks() {
         return repository.findAll();
     }
 
-    public void saveTask(Task task){
-        if(repository.existsByTitle(task.getTitle())){
+    public void saveTask(Task task) {
+        if (repository.existsByTitle(task.getTitle())) {
             throw new DuplicateTaskException("Task with this name already exists!");
         }
         repository.save(task);
     }
 
-    public void deleteTask(UUID taskId){
+    public void deleteTask(UUID taskId) {
         repository.delete(getTaskById(taskId));
     }
 

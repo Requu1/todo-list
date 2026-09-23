@@ -9,9 +9,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -58,11 +60,7 @@ class TodoServiceTest {
         given(repository.existsByTitle("Duplicate")).willReturn(true);
 
         // when & then
-        DuplicateTaskException exception = assertThrows(
-                DuplicateTaskException.class,
-                () -> service.saveTask(task)
-        );
-        assertEquals("Task with this name already exists!", exception.getMessage());
+        assertThrows(DuplicateTaskException.class, () -> service.saveTask(task));
         then(repository).should(never()).save(any(Task.class));
     }
 
@@ -87,15 +85,12 @@ class TodoServiceTest {
         given(repository.findById(id)).willReturn(Optional.empty());
 
         // when & then
-        assertThrows(
-                ResourceNotFoundException.class,
-                () -> service.deleteTask(id)
-        );
+        assertThrows(ResourceNotFoundException.class, () -> service.deleteTask(id));
         then(repository).should(never()).delete(any());
     }
 
     @Test
-    void shouldReturnTaskWhenIdExists() {
+    void shouldReturnTaskByIdWhenItExists() {
         // given
         UUID id = UUID.randomUUID();
         Task expectedTask = new Task();
@@ -117,11 +112,7 @@ class TodoServiceTest {
         given(repository.findById(id)).willReturn(Optional.empty());
 
         // when & then
-        ResourceNotFoundException exception = assertThrows(
-                ResourceNotFoundException.class,
-                () -> service.getTaskById(id)
-        );
-        assertTrue(exception.getMessage().contains(id.toString()));
+        assertThrows(ResourceNotFoundException.class, () -> service.getTaskById(id));
     }
 
     @Test

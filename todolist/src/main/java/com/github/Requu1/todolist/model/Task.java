@@ -14,9 +14,10 @@ public class Task {
     @Size(min = 3, max = 50, message = "Task name should be anywhere from 3 to 50 characters!")
     private String title;
 
-    private boolean completed=false;
+    private boolean completed = false;
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String title) {
         this.title = title;

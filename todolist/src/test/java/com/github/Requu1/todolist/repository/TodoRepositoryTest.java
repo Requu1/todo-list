@@ -22,7 +22,7 @@ class TodoRepositoryTest {
     private TodoRepository repository;
 
     @Test
-    void createdTaskWithGivenTitleExists(){
+    void createdTaskWithGivenTitleExists() {
         // given
         Task task = new Task("Buy groceries");
 
@@ -34,7 +34,7 @@ class TodoRepositoryTest {
     }
 
     @Test
-    void taskGetsDeletedFromTheRepositoryProperly(){
+    void taskGetsDeletedFromTheRepositoryProperly() {
         // given
         Task task = new Task("Laundry");
         repository.save(task);
@@ -47,7 +47,7 @@ class TodoRepositoryTest {
     }
 
     @Test
-    void repositoryContainsAllAddedPreviouslyTasks(){
+    void repositoryContainsAllAddedPreviouslyTasks() {
         // given
         Task task1 = new Task("Laundry");
         Task task2 = new Task("Groceries");
@@ -60,7 +60,7 @@ class TodoRepositoryTest {
 
         // then
         List<Task> tasks = repository.findAll();
-        assertEquals(3,tasks.size());
+        assertEquals(3, tasks.size());
         assertTrue(tasks.contains(task1));
         assertTrue(tasks.contains(task2));
         assertTrue(tasks.contains(task3));

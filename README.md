@@ -1,6 +1,8 @@
 # Todo List Application
 
-A simple Todo List web application built with **Spring Boot** and **Java 23**. The application allows users to create, display, mark as completed, and delete tasks. It uses **MySQL** as the main database, running inside a Docker container, and provides both a browser-based interface and REST API endpoints.
+A simple Todo List web application built with **Spring Boot** and **Java 25**. The application allows users to create,
+display, mark as completed, and delete tasks. It uses **MySQL** as the main database, running inside a Docker container,
+and provides both a browser-based interface and REST API endpoints.
 
 ## Features
 
@@ -13,12 +15,12 @@ A simple Todo List web application built with **Spring Boot** and **Java 23**. T
 - Web interface rendered with Thymeleaf
 - REST API for task management
 - MySQL database support through Spring Data JPA
-- Unit and repository tests using JUnit, Mockito, and H2
+- Unit tests using JUnit and Mockito
 
 ## Technologies Used
 
-- Java 23
-- Spring Boot 4
+- Java 25
+- Spring Boot
 - Spring Web MVC
 - Spring Data JPA
 - Thymeleaf
@@ -28,7 +30,6 @@ A simple Todo List web application built with **Spring Boot** and **Java 23**. T
 - Gradle
 - JUnit 5
 - Mockito
-- H2 database for tests
 - Bootstrap 5
 
 ## Project Structure
@@ -46,14 +47,14 @@ src/
 │   └── resources/
 │       ├── templates/       # Thymeleaf HTML views
 │       └── application.properties
-└── test/                    # Repository and service tests
+└── test/                    # Service tests
 ```
 
 ## Requirements
 
 Before running the project, make sure you have installed:
 
-- Java 23
+- Java 25
 - Docker
 - Gradle, or use the included Gradle Wrapper
 
@@ -120,7 +121,7 @@ http://localhost:8080
 The application also exposes a REST API under `/api/tasks`.
 
 | Method   | Endpoint                 | Description                   |
-| -------- | ------------------------ | ----------------------------- |
+|----------|--------------------------|-------------------------------|
 | `GET`    | `/api/tasks`             | Get all tasks                 |
 | `POST`   | `/api/tasks`             | Create a new task             |
 | `PATCH`  | `/api/tasks/{id}/toggle` | Toggle task completion status |
@@ -147,8 +148,6 @@ On Windows:
 ```powershell
 .\gradlew.bat test
 ```
-
-Tests use an in-memory H2 database, so a running MySQL container is not required for testing.
 
 ## Configuration
 
